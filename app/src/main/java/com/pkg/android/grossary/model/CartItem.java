@@ -1,30 +1,29 @@
 package com.pkg.android.grossary.model;
 
-import android.content.SharedPreferences;
-
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * Created by GAURAV on 10-02-2017.
  */
 
 public class CartItem {
-    private Product cartItem;
+    private Product product;
     private int cartquantity;
 
     public CartItem(Product p) {
-        cartItem = p;
+        product = p;
         cartquantity = 0;
     }
 
-
-    public void setCartItem(Product cartItem) {
-        this.cartItem = cartItem;
-        cartquantity = 0;
+    public CartItem(Product p, int cartquantity) {
+        product = p;
+        this.cartquantity = cartquantity;
     }
 
-    public Product getCartItem() {
-        return cartItem;
+    public void setProduct(Product cartItem) {
+        this.product = cartItem;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     public int getCartquantity() {
@@ -46,4 +45,11 @@ public class CartItem {
         return cartquantity;
     }
 
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "product=" + product +
+                ", cartquantity=" + cartquantity +
+                '}';
+    }
 }

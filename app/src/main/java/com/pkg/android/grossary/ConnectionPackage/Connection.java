@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.pkg.android.grossary.other.Session;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class Connection {
     Context context;
     StringRequest stringRequest;
 
-    Connection(String url, Context context) {
+    public Connection(String url, Context context) {
         this.url = url;
         this.context = context;
     }
@@ -36,6 +37,8 @@ public class Connection {
                     @Override
                     public void onResponse(String response) {
                         Log.e("params1", response);
+                        Log.d("GConnection", String.valueOf(Session.getUserId(context)));
+                        //Toast.makeText(context, "inside on post response = "+response,Toast.LENGTH_SHORT).show();
                         aSyncResponse.processFinish(response);
                     }
                 },
@@ -43,14 +46,17 @@ public class Connection {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         Toast.makeText(context, "That didn't work!", Toast.LENGTH_LONG).show();
+                        Log.d("Connection", volleyError.toString());
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                Log.d("HELLO", "id in async = " + a);
                 params.put("id", a);
                 return params;
+
             }
         };
         queue.add(stringRequest);
@@ -72,7 +78,9 @@ public class Connection {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(context, "That didn't work!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "URL = "+url, Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Get didn't work!", Toast.LENGTH_LONG).show();
+                        Log.d("Connection", volleyError.toString());
                     }
                 }
         );
